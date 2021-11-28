@@ -1,5 +1,5 @@
 {
-  "name": "amazona",
+  "name": "pharmacy",
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
@@ -34,16 +34,8 @@
     "build": "rm -rf dist && babel backend -d dist  && cd frontend && npm install && npm run build",
     "heroku-postbuild-x": "npm run build && cd frontend && npm install && npm run build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/basir/amazona.git"
-  },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/basir/amazona/issues"
-  },
-  "homepage": "https://github.com/basir/amazona#readme",
   "engines": {
     "node": "12.4.0",
     "npm": "6.9.0"

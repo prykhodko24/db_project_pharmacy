@@ -14,19 +14,19 @@ import {
 } from '../constants/userConstants';
 
 const update =
-  ({ userId, name, email, password }) =>
+  ({ userId, name, email, password, surname }) =>
   async (dispatch, getState) => {
     const {
       userSignin: { userInfo },
     } = getState();
     dispatch({
       type: USER_UPDATE_REQUEST,
-      payload: { userId, name, email, password },
+      payload: { userId, name, email, password, surname },
     });
     try {
       const { data } = await Axios.put(
         '/api/users/' + userId,
-        { name, email, password },
+        { name, email, password, surname },
         {
           headers: {
             Authorization: 'Bearer ' + userInfo.token,
@@ -51,14 +51,13 @@ const signin = (email, password) => async (dispatch) => {
   }
 };
 
-const register = (name, email, password) => async (dispatch) => {
-  dispatch({ type: USER_REGISTER_REQUEST, payload: { name, email, password } });
+const register = (options) => async (dispatch) => {
+  dispatch({
+    type: USER_REGISTER_REQUEST,
+    payload: options,
+  });
   try {
-    const { data } = await Axios.post('/api/users/register', {
-      name,
-      email,
-      password,
-    });
+    const { data } = await Axios.post('/api/users/register', options);
     dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
     Cookie.set('userInfo', JSON.stringify(data));
   } catch (error) {

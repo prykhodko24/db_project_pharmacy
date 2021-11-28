@@ -3,10 +3,10 @@ import config from './config';
 const getToken = (user) => {
   return jwt.sign(
     {
-      _id: user._id,
+      id: user.id,
       name: user.name,
       email: user.email,
-      isAdmin: user.isAdmin,
+      role: user.role,
     },
     config.JWT_SECRET,
     {
@@ -25,8 +25,7 @@ const isAuth = (req, res, next) => {
         return res.status(401).send({ message: 'Invalid Token' });
       }
       req.user = decode;
-      next();
-      return;
+      return next();
     });
   } else {
     return res.status(401).send({ message: 'Token is not supplied.' });
@@ -34,8 +33,7 @@ const isAuth = (req, res, next) => {
 };
 
 const isAdmin = (req, res, next) => {
-  console.log(req.user);
-  if (req.user && req.user.isAdmin) {
+  if (req.user && req.user.role === 'admin') {
     return next();
   }
   return res.status(401).send({ message: 'Admin Token is not valid.' });

@@ -40,7 +40,7 @@ function App() {
             ) : (
               <Link to="/signin">Sign In</Link>
             )}
-            {userInfo && userInfo.isAdmin && (
+            {userInfo && userInfo.role == 'admin' && (
               <div className="dropdown">
                 <a href="#">Admin</a>
                 <ul className="dropdown-content">
